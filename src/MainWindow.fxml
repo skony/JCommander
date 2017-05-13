@@ -4,7 +4,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.ListViewController">
    <children>
       <MenuBar prefHeight="25.0" prefWidth="600.0">
         <menus>
@@ -27,12 +27,8 @@
       </MenuBar>
       <SplitPane dividerPositions="0.5" layoutY="25.0" prefHeight="375.0" prefWidth="600.0">
          <items>
-            <ScrollPane id="scrollPane1" prefHeight="200.0" prefWidth="200.0">
-               <content>
-                  <ListView prefHeight="376.0" prefWidth="300.0" />
-               </content>
-            </ScrollPane>
-            <ScrollPane prefHeight="200.0" prefWidth="200.0" />
+            <ListView fx:id="listView1" onKeyPressed="#handleKeyPressedListView1" onMouseClicked="#handleMouseClickListView1" prefHeight="200.0" prefWidth="200.0" />
+            <ListView fx:id="listView2" onMouseClicked="#handleMouseClickListView2" prefHeight="200.0" prefWidth="200.0" />
          </items>
       </SplitPane>
    </children>

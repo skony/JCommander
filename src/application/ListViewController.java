@@ -1,58 +1,81 @@
 package application;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.io.File;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Stream;
+import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.scene.Node;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.SplitPane;
-import javafx.scene.layout.Pane;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 
-public class ListViewController {
+public class ListViewController implements Initializable {
 	
-	private static final String START_PATH = "C:\\Testowy";
-	private ListView listView;
-	private ObservableList<String> elements;
-
-	public ListViewController(Pane pane) {
-		SplitPane splitPane = null;
-		for(Node node : Tools.getAllNodes(pane)) {
-			if(node instanceof SplitPane) {
-				splitPane = (SplitPane) node;
-			}
-		}
-		ScrollPane scrollPane = null;
-		for(Node node : splitPane.getItems()) {
-			if(node instanceof ScrollPane && "scrollPane1".equals(node.getId())) {
-				scrollPane = (ScrollPane) node;
-			}
-		}
-		listView = (ListView) scrollPane.getContent();
-		//elements  = FXCollections.emptyObservableList();
+	private static final String START_PATH = "C:\\Users\\Asus\\Downloads";
+	private static final String RETURN_ITEM = "..\\";
+	private String currentPath = START_PATH;
+	@FXML
+	private ListView<String> listView1;
+	@FXML
+	private ListView<String> listView2;
+			
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
 		listStartDirectory();
-		//listView.setItems(elements);
+	}
+	
+	public void handleMouseClickListView1(MouseEvent event) {
+		handleMouseClick(listView1);
+	}
+	
+	public void handleMouseClickListView2(MouseEvent event) {
+		handleMouseClick(listView2);
+	}
+	
+	public void handleKeyPressedListView1(KeyEvent event) {
+		KeyCode keyCode = event.getCode();
+		if(keyCode == KeyCode.DELETE) {
+			String selectedItem = listView1.getSelectionModel().getSelectedItem();
+			File selectedFile = new File(currentPath + "\\" + selectedItem);
+			if(selectedFile.isFile()) {
+				selectedFile.delete();
+				listSelectedDirectory(listView1);
+			}
+		}
+	}
+	
+	private void handleMouseClick(ListView<String> listView) {
+		String selectedItem = listView.getSelectionModel().getSelectedItem();
+		File selectedFile = new File(currentPath + "\\" + selectedItem);
+		if(selectedFile.isDirectory()) {
+			currentPath += "\\" + selectedItem;
+			listSelectedDirectory(listView);
+		}
+	}
+	
+	private void listSelectedDirectory(ListView<String> listView) {
+		List<String> startDirectoryElements = new ArrayList<>();
+		startDirectoryElements.add(RETURN_ITEM);
+		File directory = new File(currentPath);
+		for(String file : directory.list()) {
+			startDirectoryElements.add(file);
+		}		
+		listView.setItems(FXCollections.observableArrayList(startDirectoryElements));
 	}
 	
 	private void listStartDirectory() {
 		List<String> startDirectoryElements = new ArrayList<>();
-		try(Stream<Path> paths = Files.walk(Paths.get(START_PATH))) {
-		    paths.forEach(filePath -> {
-		        if (Files.isRegularFile(filePath)) {
-		            System.out.println(filePath);
-		            startDirectoryElements.add(filePath.toString());
-		        }
-		    });
-		} catch(IOException exception) {
-			
+		startDirectoryElements.add(RETURN_ITEM);
+		File directory = new File(START_PATH);
+		for(String file : directory.list()) {
+			startDirectoryElements.add(file);
 		}
-		listView.setItems(FXCollections.observableArrayList(startDirectoryElements));
+		listView1.setItems(FXCollections.observableArrayList(startDirectoryElements));
+		listView2.setItems(FXCollections.observableArrayList(startDirectoryElements));
 	}
 }

@@ -12,9 +12,9 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			primaryStage.setTitle("FXML TableView Example");
+			primaryStage.setTitle("JCommander");
 	        Pane myPane = (Pane) FXMLLoader.load(getClass().getClassLoader().getResource("MainWindow.fxml"));
-	        new ListViewController(myPane);
+	        //new ListViewController(myPane);
 	        Scene myScene = new Scene(myPane);
 	        primaryStage.setScene(myScene);
 	        primaryStage.show();
