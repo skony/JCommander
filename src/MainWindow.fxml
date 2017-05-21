@@ -27,8 +27,8 @@
       </MenuBar>
       <SplitPane dividerPositions="0.5" layoutY="25.0" prefHeight="375.0" prefWidth="600.0">
          <items>
-            <ListView fx:id="listView1" onKeyPressed="#handleKeyPressedListView1" onMouseClicked="#handleMouseClickListView1" prefHeight="200.0" prefWidth="200.0" />
-            <ListView fx:id="listView2" onMouseClicked="#handleMouseClickListView2" prefHeight="200.0" prefWidth="200.0" />
+            <ListView fx:id="listView1" onKeyPressed="#handleKeyPressedListView1" onMouseClicked="#handleMouseClickListView1" onMouseDragReleased="#handleDragOverListView1" prefHeight="200.0" prefWidth="200.0" />
+            <ListView fx:id="listView2" onDragDetected="#handleDragDetectedListView2" onMouseClicked="#handleMouseClickListView2" prefHeight="200.0" prefWidth="200.0" />
          </items>
       </SplitPane>
    </children>
