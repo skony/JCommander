@@ -32,14 +32,18 @@ public class ListViewController implements Initializable {
 	private static final String RETURN_ITEM = "..\\";
 	private static final String LIST_VIEW_1_ID = "listView1";
 	private static final String LIST_VIEW_2_ID = "listView2";
-	private String currentPath1 = START_PATH;
-	private String currentPath2 = START_PATH;
+
+	private StringBuilder currentPath1 = new StringBuilder(START_PATH);
+	private StringBuilder currentPath2 = new StringBuilder(START_PATH);
 	private boolean copyOn = false;
 	private final ObjectProperty<ListCell<String>> dragSource = new SimpleObjectProperty<>();
+
 	@FXML
 	private Pane pane1;
+
 	@FXML
 	private ListView<String> listView1;
+
 	@FXML
 	private ListView<String> listView2;
 
@@ -49,67 +53,62 @@ public class ListViewController implements Initializable {
 		setupListView(listView1, LIST_VIEW_1_ID);
 		setupListView(listView2, LIST_VIEW_2_ID);
 	}
-	
+
 	public void handleKeyPressedPane1(KeyEvent event) {
 		KeyCode keyCode = event.getCode();
-		if(keyCode == KeyCode.C) {
+		if (keyCode == KeyCode.C) {
 			copyOn = true;
 		}
 	}
-	
+
 	public void handleKeyReleasedPane1(KeyEvent event) {
 		KeyCode keyCode = event.getCode();
-		if(keyCode == KeyCode.C) {
+		if (keyCode == KeyCode.C) {
 			copyOn = false;
 		}
 	}
 
 	public void handleKeyPressedListView1(KeyEvent event) {
-		KeyCode keyCode = event.getCode();
-		if (keyCode == KeyCode.DELETE) {
-			String selectedItem = listView1.getSelectionModel().getSelectedItem();
-			File selectedFile = new File(currentPath1 + "\\" + selectedItem);
-			if (selectedFile.isFile()) {
-				selectedFile.delete();
-				listSelectedDirectory(listView1);
-			}
-		}
+		delete(event, listView1, currentPath1);
 	}
 
 	public void handleKeyPressedListView2(KeyEvent event) {
+		delete(event, listView2, currentPath2);
+	}
+
+	private void delete(KeyEvent event, ListView<String> listView, StringBuilder currentPath) {
 		KeyCode keyCode = event.getCode();
 		if (keyCode == KeyCode.DELETE) {
-			String selectedItem = listView2.getSelectionModel().getSelectedItem();
-			File selectedFile = new File(currentPath2 + "\\" + selectedItem);
+			String selectedItem = listView.getSelectionModel().getSelectedItem();
+			File selectedFile = new File(currentPath + "\\" + selectedItem);
 			if (selectedFile.isFile()) {
 				selectedFile.delete();
-				listSelectedDirectory(listView2);
+				listSelectedDirectory(listView, currentPath);
 			}
 		}
 	}
 
 	public void handleMouseClickListView1(MouseEvent event) {
-		String selectedItem = listView1.getSelectionModel().getSelectedItem();
-		File selectedFile = new File(currentPath1 + "\\" + selectedItem);
-		if (selectedFile.isDirectory()) {
-			currentPath1 += "\\" + selectedItem;
-			listSelectedDirectory(listView1);
-		}
+		changeDirectory(listView1, currentPath1);
 	}
 
 	public void handleMouseClickListView2(MouseEvent event) {
-		String selectedItem = listView2.getSelectionModel().getSelectedItem();
-		File selectedFile = new File(currentPath2 + "\\" + selectedItem);
+		changeDirectory(listView2, currentPath2);
+	}
+
+	private void changeDirectory(ListView<String> listView, StringBuilder currentPath) {
+		String selectedItem = listView.getSelectionModel().getSelectedItem();
+		File selectedFile = new File(currentPath + "\\" + selectedItem);
 		if (selectedFile.isDirectory()) {
-			currentPath2 += "\\" + selectedItem;
-			listSelectedDirectory(listView2);
+			currentPath.append("\\" + selectedItem);
+			listSelectedDirectory(listView, currentPath);
 		}
 	}
 
-	private void listSelectedDirectory(ListView<String> listView) {
+	private void listSelectedDirectory(ListView<String> listView, StringBuilder currentPath) {
 		List<String> startDirectoryElements = new ArrayList<>();
 		startDirectoryElements.add(RETURN_ITEM);
-		File directory = new File(currentPath1);
+		File directory = new File(currentPath.toString());
 		for (String file : directory.list()) {
 			startDirectoryElements.add(file);
 		}
@@ -155,7 +154,7 @@ public class ListViewController implements Initializable {
 				}
 			});
 			cell.setOnDragDone(event -> {
-				if(copyOn == false) {
+				if (copyOn == false) {
 					listView.getItems().remove(cell.getItem());
 				}
 			});
