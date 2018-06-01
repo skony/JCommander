@@ -25,10 +25,34 @@
           </Menu>
         </menus>
       </MenuBar>
-      <SplitPane dividerPositions="0.5" layoutY="25.0" prefHeight="375.0" prefWidth="600.0">
+      <SplitPane dividerPositions="0.5" layoutY="22.0" prefHeight="378.0" prefWidth="600.0">
          <items>
-            <ListView fx:id="listView1" onKeyPressed="#handleKeyPressedListView1" onMouseClicked="#handleMouseClickListView1" prefHeight="200.0" prefWidth="200.0" />
-            <ListView fx:id="listView2" onKeyPressed="#handleKeyPressedListView2" onMouseClicked="#handleMouseClickListView2" prefHeight="200.0" prefWidth="200.0" />
+            <Pane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <TableView id="tableView1" fx:id="tableView1" layoutY="25.0" onMouseClicked="#handleMouseClickTableView1" prefHeight="353.0" prefWidth="296.0">
+                    <columns>
+                      <TableColumn fx:id="tableColumnFileName1" prefWidth="156.0" text="Name" />
+                      <TableColumn fx:id="tableColumnSize1" prefWidth="61.0" text="Size" />
+                        <TableColumn fx:id="tableColumnLastModified1" prefWidth="79.0" text="Last modified" />
+                    </columns>
+                  </TableView>
+                  <Label fx:id="pathLabel1" prefHeight="25.0" prefWidth="228.0" text="Label" />
+                  <Button fx:id="upButton1" layoutX="265.0" mnemonicParsing="false" onMouseClicked="#handleMouseClickUpButton1" text="UP" />
+               </children>
+            </Pane>
+            <Pane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <TableView id="tableView2" fx:id="tableView2" layoutX="-6.0" layoutY="25.0" onMouseClicked="#handleMouseClickTableView2" prefHeight="353.0" prefWidth="296.0">
+                    <columns>
+                      <TableColumn fx:id="tableColumnFileName2" prefWidth="163.0" text="Name" />
+                        <TableColumn fx:id="tableColumnSize2" prefWidth="64.0" text="Size" />
+                        <TableColumn fx:id="tableColumnLastModified2" prefWidth="69.0" text="Last modified" />
+                    </columns>
+                  </TableView>
+                  <Label fx:id="pathLabel2" prefHeight="25.0" prefWidth="220.0" text="Label" />
+                  <Button fx:id="upButton2" layoutX="267.0" mnemonicParsing="false" onMouseClicked="#handleMouseClickUpButton2" text="UP" />
+               </children>
+            </Pane>
          </items>
       </SplitPane>
    </children>
