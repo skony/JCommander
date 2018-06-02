@@ -4,7 +4,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 
-<Pane fx:id="pane1" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#handleKeyPressedPane1" onKeyReleased="#handleKeyReleasedPane1" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.ListViewController">
+<AnchorPane fx:id="pane1" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.ListViewController">
    <children>
       <MenuBar prefHeight="25.0" prefWidth="600.0">
         <menus>
@@ -15,7 +15,9 @@
           </Menu>
           <Menu mnemonicParsing="false" text="Edit">
             <items>
-              <MenuItem mnemonicParsing="false" text="Delete" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleActionCopy" text="Copy" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleActionPaste" text="Paste" />
+              <MenuItem mnemonicParsing="false" onAction="#handleActionDelete" text="Delete" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Help">
@@ -25,11 +27,11 @@
           </Menu>
         </menus>
       </MenuBar>
-      <SplitPane dividerPositions="0.5" layoutY="22.0" prefHeight="378.0" prefWidth="600.0">
+      <SplitPane fx:id="splitPane1" dividerPositions="0.5" layoutY="22.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="378.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="22.0">
          <items>
-            <Pane prefHeight="200.0" prefWidth="200.0">
+            <AnchorPane prefHeight="200.0" prefWidth="200.0">
                <children>
-                  <TableView id="tableView1" fx:id="tableView1" layoutY="25.0" onMouseClicked="#handleMouseClickTableView1" prefHeight="353.0" prefWidth="296.0">
+                  <TableView id="tableView1" fx:id="tableView1" layoutY="25.0" onMouseClicked="#handleMouseClickTableView1" prefHeight="353.0" prefWidth="296.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0">
                     <columns>
                       <TableColumn fx:id="tableColumnFileName1" prefWidth="156.0" text="Name" />
                       <TableColumn fx:id="tableColumnSize1" prefWidth="61.0" text="Size" />
@@ -37,12 +39,12 @@
                     </columns>
                   </TableView>
                   <Label fx:id="pathLabel1" prefHeight="25.0" prefWidth="228.0" text="Label" />
-                  <Button fx:id="upButton1" layoutX="265.0" mnemonicParsing="false" onMouseClicked="#handleMouseClickUpButton1" text="UP" />
+                  <Button fx:id="upButton1" layoutX="265.0" mnemonicParsing="false" onMouseClicked="#handleMouseClickUpButton1" text="UP" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                </children>
-            </Pane>
-            <Pane prefHeight="200.0" prefWidth="200.0">
+            </AnchorPane>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0">
                <children>
-                  <TableView id="tableView2" fx:id="tableView2" layoutX="-6.0" layoutY="25.0" onMouseClicked="#handleMouseClickTableView2" prefHeight="353.0" prefWidth="296.0">
+                  <TableView id="tableView2" fx:id="tableView2" layoutX="-6.0" layoutY="25.0" onMouseClicked="#handleMouseClickTableView2" prefHeight="353.0" prefWidth="296.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0">
                     <columns>
                       <TableColumn fx:id="tableColumnFileName2" prefWidth="163.0" text="Name" />
                         <TableColumn fx:id="tableColumnSize2" prefWidth="64.0" text="Size" />
@@ -50,10 +52,10 @@
                     </columns>
                   </TableView>
                   <Label fx:id="pathLabel2" prefHeight="25.0" prefWidth="220.0" text="Label" />
-                  <Button fx:id="upButton2" layoutX="267.0" mnemonicParsing="false" onMouseClicked="#handleMouseClickUpButton2" text="UP" />
+                  <Button fx:id="upButton2" layoutX="267.0" mnemonicParsing="false" onMouseClicked="#handleMouseClickUpButton2" text="UP" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                </children>
-            </Pane>
+            </AnchorPane>
          </items>
       </SplitPane>
    </children>
-</Pane>
+</AnchorPane>
